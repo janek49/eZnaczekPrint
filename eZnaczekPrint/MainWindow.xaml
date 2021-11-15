@@ -1,0 +1,27 @@
+﻿<Window  x:Class="eZnaczekPrint.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:eZnaczekPrint"
+        xmlns:page="clr-namespace:eZnaczekPrint.Pages"
+        mc:Ignorable="d"
+        Title="eZnaczekPrint" Height="600" Width="725" WindowStartupLocation="CenterScreen" ContentRendered="Window_ContentRendered" AllowDrop="True" Icon="Images/frameprint.png"   >
+    <Grid  >
+        <Grid >
+            <TabControl>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="16" Margin="0,0,4,0" Source="Images/fileprint.png"></Image>
+                            <TextBlock>Pojedyncza etykieta</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <page:PageSingleLabel></page:PageSingleLabel>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+
+    </Grid>
+</Window>

@@ -1,0 +1,16 @@
+﻿<Button x:Class="eZnaczekPrint.ToolBarButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:eZnaczekPrint"
+             mc:Ignorable="d" 
+               Margin="5,0,0,0"  VerticalAlignment="Stretch" Background="Transparent" BorderBrush="Transparent"
+        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Loaded="Button_Loaded" VerticalContentAlignment="Top">
+
+    <StackPanel Orientation="Vertical">
+        <Image Name="icon" Height="32" Source="/Images/kservices.png"  ></Image>
+        <TextBlock Name="textBlock" TextAlignment="Center" HorizontalAlignment="Center"  Text="ToolBarButton"></TextBlock>
+    </StackPanel>
+
+</Button>

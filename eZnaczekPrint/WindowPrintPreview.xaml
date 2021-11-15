@@ -1,0 +1,16 @@
+﻿<Window x:Class="eZnaczekPrint.WindowPrintPreview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:eZnaczekPrint"
+        mc:Ignorable="d"
+        Title="Podgląd wydruku" Height="523" Width="900" WindowStartupLocation="CenterOwner" Icon="Images/actions_document_print_preview_15786.png" ContentRendered="Window_ContentRendered">
+    <Grid>
+        <ToolBar  VerticalAlignment="Top" Height="64" Background="Transparent">
+            <local:ToolBarButton x:Name="TbBtnSave" Text="Zapisz" Image="Images/floppy_unmount.png" VerticalAlignment="Stretch" Click="TbBtnSave_Click" ></local:ToolBarButton>
+        </ToolBar>
+        <Image x:Name="imgPreview" Stretch="Fill" Margin="0,64,0,0"/>
+    </Grid>
+</Window>
+    

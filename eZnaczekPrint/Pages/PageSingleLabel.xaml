@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="eZnaczekPrint.Pages.PageSingleLabel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:eZnaczekPrint.Pages"
+      mc:Ignorable="d"
+      d:DesignWidth="713.5" d:DesignHeight="507" AllowDrop="True">
+    <Grid>
+        <ToolBar Background="Transparent"  Height="80" VerticalAlignment="Top">
+            <Button Margin="5,0,0,0" Click="rbSinglePageBtnPreview_Click" VerticalAlignment="Top">
+                <StackPanel Orientation="Vertical">
+                    <Image Height="32" Source="../Images/kdvi.png"></Image>
+                    <TextBlock HorizontalAlignment="Center">Podgląd<LineBreak/>wydruku</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="tbBtnSaveFile" Margin="5,0,0,0"  VerticalAlignment="Top" Click="tbBtnSaveFile_Click">
+                <StackPanel VerticalAlignment="Stretch" Orientation="Vertical">
+                    <Image Height="32" Source="../Images/floppy_unmount.png" VerticalAlignment="Top"></Image>
+                    <TextBlock TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom">Eksportuj<LineBreak/>plik</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Margin="5,0,0,0" Click="rbSinglePageBtnSettings_Click" VerticalAlignment="Top">
+                <StackPanel VerticalAlignment="Stretch" Orientation="Vertical">
+                    <Image Height="32" Source="../Images/configure.png" VerticalAlignment="Top"></Image>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom">Ustawienia</TextBlock>
+                </StackPanel>
+            </Button>
+
+        </ToolBar>
+        <GroupBox Header="Nadawca" HorizontalAlignment="Left" Height="192" Margin="6,84,0,0" VerticalAlignment="Top" Width="343">
+            <Grid>
+                <Label Content="Adres:"/>
+                <TextBox x:Name="txtSender" Margin="5,21,5,28" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True"/>
+                <Label Content="Telefon:" VerticalAlignment="Bottom" Margin="0,0,274,0"/>
+                <TextBox x:Name="txtSenderPhone" TextWrapping="Wrap" Text="" Margin="57,146,5,0"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Adresat" HorizontalAlignment="Left" Height="192" Margin="364,84,0,0" VerticalAlignment="Top" Width="343">
+            <Grid>
+                <Label Content="Adres:"/>
+                <TextBox x:Name="txtReceiver" Margin="5,21,5,28" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True" Text=""/>
+                <Label Content="Telefon:" VerticalAlignment="Bottom" Margin="0,0,274,0"/>
+                <TextBox x:Name="txtReceiverPhone" TextWrapping="Wrap" Text="" Margin="57,146,5,0"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="gbZnaczek"  Header="Znaczek"  AllowDrop="True" Margin="6,278,0,6" HorizontalAlignment="Left" Width="343" >
+            <Grid>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Upuść plik tutaj...</TextBlock>
+                <Image x:Name="imgZnaczek"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox   Header="Konfiguracja"   Margin="362,278,0,6" HorizontalAlignment="Left" Width="343" >
+            <Grid>
+                <Label Content="Rodzaj znaczka:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,8,0,0"/>
+                <ComboBox x:Name="CmbStampFormat" HorizontalAlignment="Left" Margin="93,12,0,0" VerticalAlignment="Top" Width="228"/>
+                <CheckBox x:Name="CkbIsPriority" Content="Przesyłka priorytetowa" HorizontalAlignment="Left" Margin="5,48,0,0" VerticalAlignment="Top" IsChecked="True"/>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+
+</UserControl>
+    
+ 
