@@ -27,6 +27,7 @@ namespace eZnaczekPrint.Pages
         private System.Drawing.Image CurrentStampSelected;
 
         private List<Type> StampFormatsAvailable = new List<Type>();
+        private List<Type> LabelFormatsAvailable = new List<Type>();
 
         public PageSingleLabel()
         {
@@ -49,6 +50,19 @@ namespace eZnaczekPrint.Pages
 
             if (CmbStampFormat.Items.Count > 0)
                 CmbStampFormat.SelectedIndex = 0;
+
+            var labelFormats = Assembly.GetAssembly(typeof(RenderLabelFormat)).GetTypes().Where(t => t.IsSubclassOf(typeof(RenderLabelFormat)));
+
+            foreach (Type type in labelFormats)
+            {
+                MethodBase method = type.GetMethod("GetDisplayName");
+
+                CmbLabelRender.Items.Add(method.Invoke(null, null) as string);
+                LabelFormatsAvailable.Add(type);
+            }
+
+            if (CmbLabelRender.Items.Count > 0)
+                CmbLabelRender.SelectedIndex = 0;
         }
 
         private void PageSingleLabel_Drop(object sender, DragEventArgs e)
@@ -97,10 +111,19 @@ namespace eZnaczekPrint.Pages
 
         private void OpenPreviewWindow(bool save = false)
         {
-            WindowPrintPreview window = new WindowPrintPreview(GetLabelData(), CreateCurrentStampFormatType(CurrentStampSelected));
+            WindowPrintPreview window = new WindowPrintPreview(GetLabelData(), CreateCurrentStampFormatType(CurrentStampSelected), CreateCurrentLabelRender());
             window.Owner = MainWindow.GetInstance();
             window.AutoSave = save;
             window.ShowDialog();
+        }
+
+        private RenderLabelFormat CreateCurrentLabelRender()
+        {
+            if (CmbStampFormat.SelectedIndex < 0)
+                return null;
+
+            Type tp = LabelFormatsAvailable[CmbLabelRender.SelectedIndex];
+            return (RenderLabelFormat)Activator.CreateInstance(tp, new object[] { });
         }
 
         private void rbSinglePageBtnPreview_Click(object sender, RoutedEventArgs e)

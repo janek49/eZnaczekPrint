@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace eZnaczekPrint.Render
 {
-    public class RenderEnvelopeDL : RenderLabelFormat
+    public class RenderLabel4x6 : RenderLabelFormat
     {
-        public  static string GetDisplayName()
+        public static string GetDisplayName()
         {
-            return "Koperta DL";
+            return "Etykieta 4x6 (10x15cm)";
         }
 
         public override Bitmap DrawLabel(LabelData ld, StampFormat stamp)
         {
-            int LBL_W = 2480;
+            int LBL_W = 1800;
             int LBL_H = 1240;
 
             Bitmap BITMAP = new Bitmap(LBL_W, LBL_H);
@@ -168,7 +168,7 @@ namespace eZnaczekPrint.Render
             {
                 int STAMP_MARGIN_LEFT = 10;
                 int STAMP_MARGIN_TOP = 10;
-                double STAMP_SCALE_FACTOR = 1.15d;
+                double STAMP_SCALE_FACTOR = 1.60d;
                 Image IMG_STAMP_SCALED = Util.ResizeImage(stamp.ImagePartUpperPart, (int)(stamp.ImagePartUpperPart.Width / STAMP_SCALE_FACTOR), (int)(stamp.ImagePartUpperPart.Height / STAMP_SCALE_FACTOR));
                 G.DrawImage(IMG_STAMP_SCALED, new Point(SPLIT_CROSSING_X + STAMP_MARGIN_LEFT, OUTER_MARGIN_SIZE_UPDOWN + STAMP_MARGIN_TOP));
             }
@@ -177,7 +177,7 @@ namespace eZnaczekPrint.Render
             {
                 int TRACKING_MARGIN_LEFT = 30;
                 int TRACKING_MARGIN_TOP = 150;
-                double TRACKING_SCALE_FACTOR = 1.35d;
+                double TRACKING_SCALE_FACTOR = 1.85d;
                 Image IMG_TRACKING_SCALED = Util.ResizeImage(stamp.ImagePartTrackingCode, (int)(stamp.ImagePartTrackingCode.Width / TRACKING_SCALE_FACTOR), (int)(stamp.ImagePartTrackingCode.Height / TRACKING_SCALE_FACTOR));
                 G.DrawImage(IMG_TRACKING_SCALED, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT + TRACKING_MARGIN_LEFT, SPLIT_CROSSING_Y + TRACKING_MARGIN_TOP));
             }

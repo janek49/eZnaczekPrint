@@ -55,6 +55,8 @@
                 <Label Content="Rodzaj znaczka:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,8,0,0"/>
                 <ComboBox x:Name="CmbStampFormat" HorizontalAlignment="Left" Margin="93,12,0,0" VerticalAlignment="Top" Width="228"/>
                 <CheckBox x:Name="CkbIsPriority" Content="Przesyłka priorytetowa" HorizontalAlignment="Left" Margin="5,48,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                <Label Content="Rodzaj etykiety:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,82,0,0"/>
+                <ComboBox x:Name="CmbLabelRender" HorizontalAlignment="Left" Margin="93,84,0,0" VerticalAlignment="Top" Width="228"/>
 
             </Grid>
         </GroupBox>

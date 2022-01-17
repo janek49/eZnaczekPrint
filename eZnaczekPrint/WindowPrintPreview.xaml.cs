@@ -32,10 +32,11 @@ namespace eZnaczekPrint
         public StampFormat StampFormat;
         public System.Drawing.Image CurrenImageLoaded;
         public bool AutoSave = false;
+        public RenderLabelFormat LabelRender;
 
-        public WindowPrintPreview(LabelData data, StampFormat stamp) : this()
+        public WindowPrintPreview(LabelData data, StampFormat stamp, RenderLabelFormat labelformat) : this()
         {
-
+            LabelRender = labelformat;
             LabelData = data;
             StampFormat = stamp;
         }
@@ -54,7 +55,12 @@ namespace eZnaczekPrint
             try
             {
                 CurrenImageLoaded.Save(dlg.FileName, ImageFormat.Png);
-                MessageBox.Show("Zapisano plik:\n\n" + dlg.FileName, "Informacja", MessageBoxButton.OK, MessageBoxImage.Information);
+                if(MessageBox.Show("Zapisano plik:\n\n" + dlg.FileName + "\n\nChcesz go teraz otworzyć?", "Informacja", MessageBoxButton.YesNo, MessageBoxImage.Information) 
+                    == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(dlg.FileName);
+                }
+
                 if (AutoSave)
                     Close();
             }
@@ -68,7 +74,7 @@ namespace eZnaczekPrint
         {
             try
             {
-                CurrenImageLoaded = new RenderEnvelopeDL().DrawLabel(LabelData, StampFormat);
+                CurrenImageLoaded = LabelRender.DrawLabel(LabelData, StampFormat);
                 ImageSource wpfimage = Util.ImageToImageSource(CurrenImageLoaded);
                 imgPreview.Source = wpfimage;
             }
