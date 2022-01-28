@@ -5,12 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eZnaczekPrint"
         mc:Ignorable="d"
-        Title="WindowSinglePageSettings" Height="361.923" Width="518.074" WindowStartupLocation="CenterOwner" >
+        Title="Ustawienia" Height="361.923" Width="535" WindowStartupLocation="CenterOwner" >
     <Grid>
+        <GroupBox Header="Domyślny nadawca" HorizontalAlignment="Left" Height="156" Margin="7,7,0,0" VerticalAlignment="Top" Width="250">
+            <Grid>
+                <Label Content="Adres:"/>
 
-        <GroupBox Margin="9,10,10,42" Header="Ustawienia"/>
+                <TextBox x:Name="txtSender" Margin="5,25,5,28" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True"/>
+                <Label Content="Telefon:" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="57"/>
+                <TextBox x:Name="txtSenderPhone" TextWrapping="Wrap" Text="" Margin="57,0,5,0" Height="23" VerticalAlignment="Bottom"/>
+                <Button x:Name="btnNadawcaClear" ToolTip="Wyczyść" Background="White" BorderBrush="LightGray" Margin="0,1,5,0" VerticalAlignment="Top" Height="22" Click="btnGroupEventAddressTools" HorizontalAlignment="Right" Width="22">
+                    <StackPanel>
+                        <Image Source="/Images/delete.png" Height="16" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Domyślny adresat" HorizontalAlignment="Left" Height="156" Margin="262,7,0,0" VerticalAlignment="Top" Width="250">
+            <Grid>
+                <Label Content="Adres:"/>
+                <TextBox x:Name="txtReceiver" Margin="5,25,5,28" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True" Text=""/>
+                <Label Content="Telefon:" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="57"/>
+                <TextBox x:Name="txtReceiverPhone" TextWrapping="Wrap" Text="" Margin="57,0,5,0" Height="23" VerticalAlignment="Bottom"/>
+                <Button x:Name="btnAdresatClear" ToolTip="Wyczyść" Background="White" BorderBrush="LightGray" Margin="0,1,5,0" VerticalAlignment="Top" Height="22" Click="btnGroupEventAddressTools" HorizontalAlignment="Right" Width="22">
+                    <StackPanel>
+                        <Image Source="/Images/delete.png" Height="16" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </GroupBox>
+
         <DockPanel    Margin="10,0,0,10" VerticalAlignment="Bottom">
-            <Button x:Name="btnSave" Width="100" Height="20" Margin="0,0,10,0"  HorizontalAlignment="Left" Content="Zapisz"/>
+            <Button x:Name="btnSave" Width="100" Height="20" Margin="0,0,10,0"  HorizontalAlignment="Left" Content="Zapisz" Click="btnSave_Click"/>
             <Button x:Name="btnCancel" Width="100" Height="20"   HorizontalAlignment="Left" Content="Anuluj" Click="btnCancel_Click"/>
         </DockPanel>
     </Grid>

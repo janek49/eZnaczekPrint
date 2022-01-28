@@ -143,6 +143,28 @@ namespace eZnaczekPrint.Pages
             window.ShowDialog();
         }
 
-
+        private void btnGroupEventAddressTools(object sender, RoutedEventArgs e)
+        {
+            if (sender == btnNadawcaClear)
+            {
+                txtSender.Clear();
+                txtSenderPhone.Clear();
+            }
+            else if (sender == btnAdresatClear)
+            {
+                txtReceiver.Clear();
+                txtReceiverPhone.Clear();
+            }
+            else if (sender == btnNadawcaDef)
+            {
+                txtSender.Text = Settings.ReadSetting(WindowSinglePageSettings.FILE_SENDER_ADR);
+                txtSenderPhone.Text = Settings.ReadSetting(WindowSinglePageSettings.FILE_SENDER_TEL);
+            }
+            else if (sender == btnAdresatDef)
+            {
+                txtReceiver.Text = Settings.ReadSetting(WindowSinglePageSettings.FILE_RECV_ADR);
+                txtReceiverPhone.Text = Settings.ReadSetting(WindowSinglePageSettings.FILE_RECV_TEL);
+            }
+        }
     }
 }

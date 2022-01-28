@@ -28,29 +28,50 @@
             </Button>
 
         </ToolBar>
-        <GroupBox Header="Nadawca" HorizontalAlignment="Left" Height="192" Margin="6,84,0,0" VerticalAlignment="Top" Width="343">
+        <GroupBox Header="Nadawca" HorizontalAlignment="Left" Height="202" Margin="6,84,0,0" VerticalAlignment="Top" Width="343">
             <Grid>
                 <Label Content="Adres:"/>
-                <TextBox x:Name="txtSender" Margin="5,21,5,28" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True"/>
+
+                <TextBox x:Name="txtSender" Margin="5,25,5,0" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True" Height="126" VerticalAlignment="Top"/>
                 <Label Content="Telefon:" VerticalAlignment="Bottom" Margin="0,0,274,0"/>
-                <TextBox x:Name="txtSenderPhone" TextWrapping="Wrap" Text="" Margin="57,146,5,0"/>
+                <TextBox x:Name="txtSenderPhone" TextWrapping="Wrap" Text="" Margin="57,0,5,0" Height="23" VerticalAlignment="Bottom"/>
+                <Button x:Name="btnNadawcaClear" ToolTip="Wyczyść" Background="White" BorderBrush="LightGray" HorizontalAlignment="Left" Margin="304,1,0,0" VerticalAlignment="Top" Height="22" Width="22" Click="btnGroupEventAddressTools">
+                    <StackPanel>
+                        <Image Source="../Images/delete.png" Height="16" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnNadawcaDef" ToolTip="Domyślny nadawca" Background="White" BorderBrush="LightGray" HorizontalAlignment="Left" Margin="277,1,0,0" VerticalAlignment="Top" Height="22" Width="22" Click="btnGroupEventAddressTools">
+                    <StackPanel>
+                        <Image Source="../Images/home.png" Height="16" />
+                    </StackPanel>
+                </Button>
             </Grid>
         </GroupBox>
-        <GroupBox Header="Adresat" HorizontalAlignment="Left" Height="192" Margin="364,84,0,0" VerticalAlignment="Top" Width="343">
+        <GroupBox Header="Adresat" HorizontalAlignment="Left" Height="202" Margin="362,84,0,0" VerticalAlignment="Top" Width="343">
             <Grid>
                 <Label Content="Adres:"/>
-                <TextBox x:Name="txtReceiver" Margin="5,21,5,28" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True" Text=""/>
+                <TextBox x:Name="txtReceiver" Margin="5,25,5,0" TextWrapping="Wrap" AcceptsTab="True"  AcceptsReturn="True" Text="" Height="126" VerticalAlignment="Top"/>
                 <Label Content="Telefon:" VerticalAlignment="Bottom" Margin="0,0,274,0"/>
-                <TextBox x:Name="txtReceiverPhone" TextWrapping="Wrap" Text="" Margin="57,146,5,0"/>
+                <TextBox x:Name="txtReceiverPhone" TextWrapping="Wrap" Text="" Margin="57,0,5,0" Height="23" VerticalAlignment="Bottom"/>
+                <Button x:Name="btnAdresatClear" ToolTip="Wyczyść" Background="White" BorderBrush="LightGray" HorizontalAlignment="Left" Margin="304,1,0,0" VerticalAlignment="Top" Height="22" Width="22" Click="btnGroupEventAddressTools">
+                    <StackPanel>
+                        <Image Source="../Images/delete.png" Height="16" />
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btnAdresatDef" ToolTip="Domyślny adresat" Background="White" BorderBrush="LightGray" HorizontalAlignment="Left" Margin="277,1,0,0" VerticalAlignment="Top" Height="22" Width="22" Click="btnGroupEventAddressTools">
+                    <StackPanel>
+                        <Image Source="../Images/home.png" Height="16" />
+                    </StackPanel>
+                </Button>
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="gbZnaczek"  Header="Znaczek"  AllowDrop="True" Margin="6,278,0,6" HorizontalAlignment="Left" Width="343" >
+        <GroupBox x:Name="gbZnaczek"  Header="Znaczek"  AllowDrop="True" Margin="6,291,0,6" HorizontalAlignment="Left" Width="343" >
             <Grid>
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">Upuść plik tutaj...</TextBlock>
                 <Image x:Name="imgZnaczek"/>
             </Grid>
         </GroupBox>
-        <GroupBox   Header="Konfiguracja"   Margin="362,278,0,6" HorizontalAlignment="Left" Width="343" >
+        <GroupBox   Header="Konfiguracja"   Margin="362,291,0,6" HorizontalAlignment="Left" Width="343" >
             <Grid>
                 <Label Content="Rodzaj znaczka:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,8,0,0"/>
                 <ComboBox x:Name="CmbStampFormat" HorizontalAlignment="Left" Margin="93,12,0,0" VerticalAlignment="Top" Width="228"/>

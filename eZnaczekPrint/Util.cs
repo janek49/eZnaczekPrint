@@ -30,7 +30,7 @@ namespace eZnaczekPrint
                 return bitmapimage;
             }
         }
-         
+
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);
@@ -65,6 +65,15 @@ namespace eZnaczekPrint
         {
             return dropPoint.X <= target.RenderSize.Width && dropPoint.X >= 0
                 && dropPoint.Y <= target.RenderSize.Height && dropPoint.Y >= 0;
+        }
+
+        public static string ReadTextFileOrCreate(string path, string def="")
+        {
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, def);
+            }
+            return File.ReadAllText(path);
         }
     }
 }
