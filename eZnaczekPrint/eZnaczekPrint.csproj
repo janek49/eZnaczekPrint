@@ -37,6 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>frameprint.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.4.4.0\lib\net462\ControlzEx.dll</HintPath>
@@ -103,6 +106,7 @@
       <DependentUpon>PageSingleLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Render\PocztaPolskaReader.cs" />
+    <Compile Include="Render\RenderLabelPOS4x6.cs" />
     <Compile Include="Render\RenderLabel4x6.cs" />
     <Compile Include="Render\RenderEnvelopeDL.cs" />
     <Compile Include="Render\RenderLabelFormat.cs" />
@@ -240,6 +244,9 @@
     <Resource Include="Images\home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="frameprint.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
