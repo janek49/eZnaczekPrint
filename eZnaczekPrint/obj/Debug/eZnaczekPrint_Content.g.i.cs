@@ -9,5 +9,6 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pdfium.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pos_4x6.jpg")]
 
 

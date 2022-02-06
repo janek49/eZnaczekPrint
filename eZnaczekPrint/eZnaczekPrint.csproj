@@ -248,6 +248,11 @@
   <ItemGroup>
     <Resource Include="frameprint.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="POS_4x6.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

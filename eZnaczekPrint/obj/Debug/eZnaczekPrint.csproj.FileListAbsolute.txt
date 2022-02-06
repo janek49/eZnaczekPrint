@@ -50,3 +50,4 @@ E:\OneDrive\VisualStudio\eZnaczekPrint\eZnaczekPrint\obj\Debug\eZnaczekPrint.csp
 E:\OneDrive\VisualStudio\eZnaczekPrint\eZnaczekPrint\obj\Debug\eZnaczekPrint.csproj.CopyComplete
 E:\OneDrive\VisualStudio\eZnaczekPrint\eZnaczekPrint\obj\Debug\eZnaczekPrint.exe
 E:\OneDrive\VisualStudio\eZnaczekPrint\eZnaczekPrint\obj\Debug\eZnaczekPrint.pdb
+E:\OneDrive\VisualStudio\eZnaczekPrint\eZnaczekPrint\bin\Debug\POS_4x6.jpg
