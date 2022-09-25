@@ -12,13 +12,13 @@ namespace eZnaczekPrint.Render
     {
         public static string GetDisplayName()
         {
-            return "Etykieta 4x6 (10x15cm)";
+            return "Etykieta 4x6 (10x15cm) PIONOWO";
         }
 
         public override Bitmap DrawLabel(LabelData ld, StampFormat stamp)
         {
-            int LBL_W = 1800;
-            int LBL_H = 1240;
+            int LBL_H = 1800;
+            int LBL_W = 1240;
 
             Bitmap BITMAP = new Bitmap(LBL_W, LBL_H);
             Graphics G = Graphics.FromImage(BITMAP);
@@ -32,16 +32,19 @@ namespace eZnaczekPrint.Render
             Pen PEN_FRAME = new Pen(Brushes.Black, OUTER_FRAME_THICCNES);
 
             G.FillRectangle(Brushes.White, new Rectangle(0, 0, LBL_W, LBL_H));
-            G.DrawRectangle(PEN_FRAME, new Rectangle(OUTER_MARGIN_SIZE_LEFTRIGHT, OUTER_MARGIN_SIZE_UPDOWN, INNER_BOX_WIDTH, INNER_BOX_HEIGHT));
+            G.DrawRectangle(PEN_FRAME, new Rectangle(OUTER_MARGIN_SIZE_LEFTRIGHT, OUTER_MARGIN_SIZE_UPDOWN, INNER_BOX_WIDTH, INNER_BOX_HEIGHT / 2 - 360));
+            G.DrawRectangle(PEN_FRAME, new Rectangle(OUTER_MARGIN_SIZE_LEFTRIGHT, OUTER_MARGIN_SIZE_UPDOWN, INNER_BOX_WIDTH, INNER_BOX_HEIGHT / 2 - 360));
 
             int SPLIT_LINE_UPDOWN_X = OUTER_MARGIN_SIZE_LEFTRIGHT + (INNER_BOX_WIDTH / 2);
             int SPLIT_LINE_LEFTRIGHT_Y = OUTER_MARGIN_SIZE_UPDOWN + (INNER_BOX_HEIGHT / 2);
 
-            G.DrawLine(PEN_FRAME, new Point(SPLIT_LINE_UPDOWN_X, OUTER_MARGIN_SIZE_UPDOWN), new Point(SPLIT_LINE_UPDOWN_X, LBL_H - OUTER_MARGIN_SIZE_UPDOWN));
+            //G.DrawLine(PEN_FRAME, new Point(SPLIT_LINE_UPDOWN_X, OUTER_MARGIN_SIZE_UPDOWN), new Point(SPLIT_LINE_UPDOWN_X, LBL_H - OUTER_MARGIN_SIZE_UPDOWN));
             G.DrawLine(PEN_FRAME, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_LINE_LEFTRIGHT_Y), new Point(LBL_W - OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_LINE_LEFTRIGHT_Y));
+            G.DrawLine(PEN_FRAME, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_LINE_LEFTRIGHT_Y-360), new Point(LBL_W - OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_LINE_LEFTRIGHT_Y-360));
 
             int SPLIT_CROSSING_X = SPLIT_LINE_UPDOWN_X;
             int SPLIT_CROSSING_Y = SPLIT_LINE_LEFTRIGHT_Y;
+            G.DrawRectangle(PEN_FRAME, new Rectangle(OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_CROSSING_Y, INNER_BOX_WIDTH, INNER_BOX_HEIGHT / 2));
 
             string COMMON_FONT_NAME = "Arial";
             string EMOJI_FONT_NAME = "Segoe UI Emoji";
@@ -50,7 +53,7 @@ namespace eZnaczekPrint.Render
             Font FONT_ADRESAT_CONTENT = new Font(COMMON_FONT_NAME, 48, FontStyle.Regular);
             Font FONT_SENDER_TITLE = new Font(COMMON_FONT_NAME, 30, FontStyle.Underline);
             Font FONT_SENDER_CONTENT = new Font(COMMON_FONT_NAME, 34, FontStyle.Regular);
-            Font FONT_PRIORITY = new Font(COMMON_FONT_NAME, 72, FontStyle.Bold);
+            Font FONT_PRIORITY = new Font(COMMON_FONT_NAME, 64, FontStyle.Bold);
             Font FONT_ADRESAT_TELEFON = new Font(EMOJI_FONT_NAME, 48, FontStyle.Regular);
             Font FONT_SENDER_TELEFON = new Font(EMOJI_FONT_NAME, 34, FontStyle.Regular);
 
@@ -59,10 +62,10 @@ namespace eZnaczekPrint.Render
             int MARGIN_ADR_CNT_LEFT = 20;
             int MARGIN_ADR_CNT_TOP = 75;
 
-            int ADRESAT_CONTENT_X = SPLIT_CROSSING_X + MARGIN_ADR_CNT_LEFT;
+            int ADRESAT_CONTENT_X = 10+ MARGIN_ADR_CNT_LEFT;
             int ADRESAT_CONTENT_Y = SPLIT_CROSSING_Y + MARGIN_ADR_CNT_TOP;
 
-            G.DrawString("Adresat / To:", FONT_ADRESAT_TITLE, Brushes.Black, new Point(SPLIT_CROSSING_X + MARGIN_ADR_TIT_LEFT, SPLIT_CROSSING_Y + MARGIN_ADR_TIT_TOP));
+            G.DrawString("Adresat / To:", FONT_ADRESAT_TITLE, Brushes.Black, new Point( MARGIN_ADR_TIT_LEFT + 10, SPLIT_CROSSING_Y + MARGIN_ADR_TIT_TOP));
 
             int ADRESAT_MAX_CONTENT_LINES = 6;
 
@@ -84,7 +87,7 @@ namespace eZnaczekPrint.Render
             {
                 Font TMP_FONT = CHOSEN_FONT_ADRESAT;
                 int TMP_W = (int)G.MeasureString(line, TMP_FONT).Width;
-                while (TMP_W > INNER_BOX_WIDTH / 2)
+                while (TMP_W > INNER_BOX_WIDTH)
                 {
                     if (TMP_FONT.Size <= 18)
                     {
@@ -150,23 +153,13 @@ namespace eZnaczekPrint.Render
             {
                 int SENDER_TELEFON_Y = SPLIT_CROSSING_Y - MARGIN_ADR_TIT_TOP - FONT_SENDER_CONTENT.Height - 10;
 
-                G.DrawString("📞 " + ld.SenderPhone, FONT_SENDER_TELEFON, Brushes.Black, SENDER_CONTENT_X, SENDER_TELEFON_Y);
+                G.DrawString("📞 " + ld.SenderPhone, FONT_SENDER_TELEFON, Brushes.Black, SENDER_CONTENT_X, SENDER_CONTENT_Y + TMP_COUNTER);
             }
 
-            bool DRAW_PRIORITY = ld.IsPriority;
-            int MARGIN_PRIORITY_TOP = 10;
-
-            if (DRAW_PRIORITY)
-            {
-                string PRIORITY_TEXT = "PRIORYTET";
-                int LOCATION_PRIORITY_X = OUTER_MARGIN_SIZE_LEFTRIGHT + (INNER_BOX_WIDTH / 4 - (int)G.MeasureString(PRIORITY_TEXT, FONT_PRIORITY).Width / 2);
-                G.DrawString(PRIORITY_TEXT, FONT_PRIORITY, Brushes.Black, new Point(LOCATION_PRIORITY_X, SPLIT_CROSSING_Y + MARGIN_PRIORITY_TOP));
-            }
-
-
+            
             if (stamp?.ImageWholeStamp != null)
             {
-                int STAMP_MARGIN_LEFT = 10;
+                int STAMP_MARGIN_LEFT = 125;
                 int STAMP_MARGIN_TOP = 10;
                 double STAMP_SCALE_FACTOR = 1.60d;
                 Image IMG_STAMP_SCALED = Util.ResizeImage(stamp.ImagePartUpperPart, (int)(stamp.ImagePartUpperPart.Width / STAMP_SCALE_FACTOR), (int)(stamp.ImagePartUpperPart.Height / STAMP_SCALE_FACTOR));
@@ -176,10 +169,21 @@ namespace eZnaczekPrint.Render
             if (stamp?.ImagePartTrackingCode != null)
             {
                 int TRACKING_MARGIN_LEFT = 30;
-                int TRACKING_MARGIN_TOP = 150;
+                int TRACKING_MARGIN_TOP = 30;
+                int TRACKING_MARGIN_RIGHT = 100;
                 double TRACKING_SCALE_FACTOR = 1.85d;
-                Image IMG_TRACKING_SCALED = Util.ResizeImage(stamp.ImagePartTrackingCode, (int)(stamp.ImagePartTrackingCode.Width / TRACKING_SCALE_FACTOR), (int)(stamp.ImagePartTrackingCode.Height / TRACKING_SCALE_FACTOR));
-                G.DrawImage(IMG_TRACKING_SCALED, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT + TRACKING_MARGIN_LEFT, SPLIT_CROSSING_Y + TRACKING_MARGIN_TOP));
+                Image IMG_TRACKING_SCALED = Util.ResizeImage(stamp.ImagePartTrackingCode, LBL_W - TRACKING_MARGIN_RIGHT, (int)(stamp.ImagePartTrackingCode.Height / TRACKING_SCALE_FACTOR));
+                G.DrawImage(IMG_TRACKING_SCALED, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT + TRACKING_MARGIN_LEFT, SPLIT_CROSSING_Y - TRACKING_MARGIN_TOP - IMG_TRACKING_SCALED.Height));
+            }
+
+
+            bool DRAW_PRIORITY = ld.IsPriority;
+            int MARGIN_PRIORITY_TOP = -350;
+            if (DRAW_PRIORITY)
+            {
+                string PRIORITY_TEXT = "PRIORYTET";
+                int LOCATION_PRIORITY_X = OUTER_MARGIN_SIZE_LEFTRIGHT + (INNER_BOX_WIDTH / 4 - (int)G.MeasureString(PRIORITY_TEXT, FONT_PRIORITY).Width / 2);
+                G.DrawString(PRIORITY_TEXT, FONT_PRIORITY, Brushes.Black, new Point(LOCATION_PRIORITY_X + 290, SPLIT_CROSSING_Y + MARGIN_PRIORITY_TOP));
             }
 
 

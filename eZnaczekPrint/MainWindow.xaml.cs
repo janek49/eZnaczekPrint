@@ -1,4 +1,5 @@
-﻿using eZnaczekPrint.Model;
+﻿using eZnaczekPrint.Common;
+using eZnaczekPrint.Model;
 using eZnaczekPrint.Render;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,22 @@ namespace eZnaczekPrint
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-             
+            LocalServer ls = new LocalServer(this);
+            ls.Start();
+        }
+
+
+        public void webHook(string address, string phone)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                this.pageSingle.txtReceiver.Text = address;
+                this.pageSingle.txtReceiverPhone.Text = phone;
+                this.WindowState = WindowState.Normal;
+                this.Hide();
+                this.Show();
+                this.Activate();
+            });
         }
 
       

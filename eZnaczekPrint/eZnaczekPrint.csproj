@@ -47,8 +47,15 @@
     <Reference Include="Fluent, Version=8.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
       <HintPath>..\packages\Fluent.Ribbon.8.0.3\lib\net462\Fluent.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="NetFrameworkServer">
+      <HintPath>..\..\BrotherLabelAPI\BrotherLabelAPI\NetFrameworkServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
       <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
@@ -101,11 +108,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Common\LocalServer.cs" />
     <Compile Include="Model\LabelData.cs" />
     <Compile Include="Pages\PageSingleLabel.xaml.cs">
       <DependentUpon>PageSingleLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Render\PocztaPolskaReader.cs" />
+    <Compile Include="Render\RenderLabel4x6Horiz.cs" />
     <Compile Include="Render\RenderLabelPOS4x6.cs" />
     <Compile Include="Render\RenderLabel4x6.cs" />
     <Compile Include="Render\RenderEnvelopeDL.cs" />

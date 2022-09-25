@@ -8,44 +8,37 @@ using System.Threading.Tasks;
 
 namespace eZnaczekPrint.Render
 {
-    public class RenderLabelPOS4x6 : RenderLabelFormat
+    public class RenderLabel4x6Horiz : RenderLabelFormat
     {
         public static string GetDisplayName()
         {
-            return "Potwierdzenie nadania - Etykieta 4x6 (10x15cm)";
+            return "Etykieta 4x6 (10x15cm) POZIOMO";
         }
-
-        private string fileName = "POS_4x6.jpg";
 
         public override Bitmap DrawLabel(LabelData ld, StampFormat stamp)
         {
+            int LBL_W = 1800;
+            int LBL_H = 1240;
 
-            int LBL_W = 2300;
-            int LBL_H = 3210 / 2;
-
-            Bitmap BITMAP = new Bitmap(Image.FromFile(fileName));
+            Bitmap BITMAP = new Bitmap(LBL_W, LBL_H);
             Graphics G = Graphics.FromImage(BITMAP);
 
             int OUTER_MARGIN_SIZE_LEFTRIGHT = 20;
             int OUTER_MARGIN_SIZE_UPDOWN = 20;
-            int OUTER_FRAME_THICCNES = 5;
+            int OUTER_FRAME_THICCNES = 2;
             int INNER_BOX_WIDTH = LBL_W - (OUTER_MARGIN_SIZE_LEFTRIGHT * 2);
             int INNER_BOX_HEIGHT = LBL_H - (OUTER_MARGIN_SIZE_UPDOWN * 2);
-            int ADRES_BOX_WIDTH = 1700;
-            int ADRES_BOX_HEIGHT = 500;
 
             Pen PEN_FRAME = new Pen(Brushes.Black, OUTER_FRAME_THICCNES);
 
-            //G.DrawRectangle(PEN_FRAME, new Rectangle(OUTER_MARGIN_SIZE_LEFTRIGHT, OUTER_MARGIN_SIZE_UPDOWN, INNER_BOX_WIDTH, INNER_BOX_HEIGHT));
+            G.FillRectangle(Brushes.White, new Rectangle(0, 0, LBL_W, LBL_H));
+            G.DrawRectangle(PEN_FRAME, new Rectangle(OUTER_MARGIN_SIZE_LEFTRIGHT, OUTER_MARGIN_SIZE_UPDOWN, INNER_BOX_WIDTH, INNER_BOX_HEIGHT));
 
-            int SPLIT_LINE_UPDOWN_X = 500;
-            int SPLIT_LINE_LEFTRIGHT_Y = 950;
+            int SPLIT_LINE_UPDOWN_X = OUTER_MARGIN_SIZE_LEFTRIGHT + (INNER_BOX_WIDTH / 2);
+            int SPLIT_LINE_LEFTRIGHT_Y = OUTER_MARGIN_SIZE_UPDOWN + (INNER_BOX_HEIGHT / 2);
 
-            // G.DrawLine(PEN_FRAME, new Point(SPLIT_LINE_UPDOWN_X, OUTER_MARGIN_SIZE_UPDOWN), new Point(SPLIT_LINE_UPDOWN_X, LBL_H - OUTER_MARGIN_SIZE_UPDOWN));
+            G.DrawLine(PEN_FRAME, new Point(SPLIT_LINE_UPDOWN_X, OUTER_MARGIN_SIZE_UPDOWN), new Point(SPLIT_LINE_UPDOWN_X, LBL_H - OUTER_MARGIN_SIZE_UPDOWN));
             G.DrawLine(PEN_FRAME, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_LINE_LEFTRIGHT_Y), new Point(LBL_W - OUTER_MARGIN_SIZE_LEFTRIGHT, SPLIT_LINE_LEFTRIGHT_Y));
-
-            G.DrawLine(PEN_FRAME, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT, 190), new Point(LBL_W - OUTER_MARGIN_SIZE_LEFTRIGHT, 190));
-            G.DrawLine(PEN_FRAME, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT, 330), new Point(LBL_W - OUTER_MARGIN_SIZE_LEFTRIGHT, 330));
 
             int SPLIT_CROSSING_X = SPLIT_LINE_UPDOWN_X;
             int SPLIT_CROSSING_Y = SPLIT_LINE_LEFTRIGHT_Y;
@@ -56,27 +49,20 @@ namespace eZnaczekPrint.Render
             Font FONT_ADRESAT_TITLE = new Font(COMMON_FONT_NAME, 36, FontStyle.Underline | FontStyle.Bold);
             Font FONT_ADRESAT_CONTENT = new Font(COMMON_FONT_NAME, 48, FontStyle.Regular);
             Font FONT_SENDER_TITLE = new Font(COMMON_FONT_NAME, 30, FontStyle.Underline);
-            Font FONT_SENDER_CONTENT = new Font(COMMON_FONT_NAME, 48, FontStyle.Regular);
+            Font FONT_SENDER_CONTENT = new Font(COMMON_FONT_NAME, 34, FontStyle.Regular);
             Font FONT_PRIORITY = new Font(COMMON_FONT_NAME, 72, FontStyle.Bold);
             Font FONT_ADRESAT_TELEFON = new Font(EMOJI_FONT_NAME, 48, FontStyle.Regular);
-            Font FONT_SENDER_TELEFON = new Font(EMOJI_FONT_NAME, 48, FontStyle.Regular);
+            Font FONT_SENDER_TELEFON = new Font(EMOJI_FONT_NAME, 34, FontStyle.Regular);
 
             int MARGIN_ADR_TIT_LEFT = 20;
             int MARGIN_ADR_TIT_TOP = 10;
             int MARGIN_ADR_CNT_LEFT = 20;
+            int MARGIN_ADR_CNT_TOP = 75;
 
             int ADRESAT_CONTENT_X = SPLIT_CROSSING_X + MARGIN_ADR_CNT_LEFT;
-            int ADRESAT_CONTENT_Y = SPLIT_CROSSING_Y + 10;
+            int ADRESAT_CONTENT_Y = SPLIT_CROSSING_Y + MARGIN_ADR_CNT_TOP;
 
-
-            string DATE_STR = DateTime.Now.ToString("yyyy-MM-dd");
-            
-            string res = Microsoft.VisualBasic.Interaction.InputBox("Data nadania:", "Data nadania", DATE_STR);
-
-            if (res != null && res.Trim().Length > 0)
-                DATE_STR = res;
-
-            G.DrawString(DATE_STR, FONT_ADRESAT_CONTENT, Brushes.Black, new Point(SPLIT_CROSSING_X + MARGIN_ADR_TIT_LEFT, 200));
+            G.DrawString("Adresat / To:", FONT_ADRESAT_TITLE, Brushes.Black, new Point(SPLIT_CROSSING_X + MARGIN_ADR_TIT_LEFT, SPLIT_CROSSING_Y + MARGIN_ADR_TIT_TOP));
 
             int ADRESAT_MAX_CONTENT_LINES = 6;
 
@@ -84,7 +70,7 @@ namespace eZnaczekPrint.Render
 
             if (ld.ReceiverAddress.Length > ADRESAT_MAX_CONTENT_LINES)
             {
-                int FONT_SIZE = (int)((double)(ADRES_BOX_HEIGHT - 35) / 1.5d / (double)ld.SenderAddress.Length);
+                int FONT_SIZE = INNER_BOX_HEIGHT / 4 / ld.ReceiverAddress.Length;
                 if (FONT_SIZE <= 18)
                 {
                     throw new Exception(string.Format("\n\nBłąd: Adres (adresat) zawiera za dużo wierszy, aby poprawnie wyświetlić etykietę.\n\n"));
@@ -98,7 +84,7 @@ namespace eZnaczekPrint.Render
             {
                 Font TMP_FONT = CHOSEN_FONT_ADRESAT;
                 int TMP_W = (int)G.MeasureString(line, TMP_FONT).Width;
-                while (TMP_W > ADRES_BOX_WIDTH)
+                while (TMP_W > INNER_BOX_WIDTH / 2)
                 {
                     if (TMP_FONT.Size <= 18)
                     {
@@ -121,16 +107,19 @@ namespace eZnaczekPrint.Render
             }
 
 
+            G.DrawString("Nadawca / From:", FONT_SENDER_TITLE, Brushes.Black,
+                new Point(OUTER_MARGIN_SIZE_LEFTRIGHT + MARGIN_ADR_TIT_LEFT, OUTER_MARGIN_SIZE_UPDOWN + MARGIN_ADR_TIT_TOP));
 
             Font CHOSEN_FONT_SENDER = FONT_SENDER_CONTENT;
 
-            int SENDER_CONTENT_X = SPLIT_CROSSING_X + MARGIN_ADR_TIT_LEFT;
-            int SENDER_CONTENT_Y = 335;
-            int SENDER_MAX_CONTENT_LINES = 6;
+            int MARGIN_SENDER_CNT_TOP = 60;
+            int SENDER_CONTENT_X = OUTER_MARGIN_SIZE_LEFTRIGHT + MARGIN_ADR_TIT_LEFT;
+            int SENDER_CONTENT_Y = OUTER_MARGIN_SIZE_UPDOWN + MARGIN_SENDER_CNT_TOP;
+            int SENDER_MAX_CONTENT_LINES = 8;
 
             if (ld.SenderAddress.Length > SENDER_MAX_CONTENT_LINES)
             {
-                int FONT_SIZE = (int)((double)(ADRES_BOX_HEIGHT - 35) / 1.5d / (double)ld.SenderAddress.Length);
+                int FONT_SIZE = (INNER_BOX_HEIGHT - 35) / 4 / ld.SenderAddress.Length;
                 if (FONT_SIZE <= 18)
                 {
                     throw new Exception(string.Format("\n\nBłąd: Adres (nadawca) zawiera za dużo wierszy, aby poprawnie wyświetlić etykietę.\n\n"));
@@ -143,7 +132,7 @@ namespace eZnaczekPrint.Render
             {
                 Font TMP_FONT = CHOSEN_FONT_SENDER;
                 int TMP_W = (int)G.MeasureString(line, TMP_FONT).Width;
-                while (TMP_W > ADRES_BOX_WIDTH)
+                while (TMP_W > INNER_BOX_WIDTH / 2)
                 {
                     if (TMP_FONT.Size <= 18)
                     {
@@ -159,28 +148,38 @@ namespace eZnaczekPrint.Render
 
             if (ld.SenderPhone != null && ld.SenderPhone.Trim().Length > 0)
             {
-                int SENDER_TELEFON_Y = SPLIT_CROSSING_Y - MARGIN_ADR_TIT_TOP - FONT_SENDER_CONTENT.Height - 20;
+                int SENDER_TELEFON_Y = SPLIT_CROSSING_Y - MARGIN_ADR_TIT_TOP - FONT_SENDER_CONTENT.Height - 10;
 
                 G.DrawString("📞 " + ld.SenderPhone, FONT_SENDER_TELEFON, Brushes.Black, SENDER_CONTENT_X, SENDER_TELEFON_Y);
             }
 
             bool DRAW_PRIORITY = ld.IsPriority;
+            int MARGIN_PRIORITY_TOP = 10;
 
             if (DRAW_PRIORITY)
             {
-                string PRIORITY_TEXT = "X";
-                int LOCATION_PRIORITY_X = 1028;
-                int LOCATION_PRIORITY_Y = 2065;
-                G.DrawString(PRIORITY_TEXT, FONT_PRIORITY, Brushes.Black, new Point(LOCATION_PRIORITY_X, LOCATION_PRIORITY_Y));
+                string PRIORITY_TEXT = "PRIORYTET";
+                int LOCATION_PRIORITY_X = OUTER_MARGIN_SIZE_LEFTRIGHT + (INNER_BOX_WIDTH / 4 - (int)G.MeasureString(PRIORITY_TEXT, FONT_PRIORITY).Width / 2);
+                G.DrawString(PRIORITY_TEXT, FONT_PRIORITY, Brushes.Black, new Point(LOCATION_PRIORITY_X, SPLIT_CROSSING_Y + MARGIN_PRIORITY_TOP));
             }
 
 
+            if (stamp?.ImageWholeStamp != null)
+            {
+                int STAMP_MARGIN_LEFT = 410;
+                int STAMP_MARGIN_TOP = 10;
+                double STAMP_SCALE_FACTOR = 1.60d;
+                Image IMG_STAMP_SCALED = Util.ResizeImage(stamp.ImagePartUpperPart, (int)(stamp.ImagePartUpperPart.Width / STAMP_SCALE_FACTOR), (int)(stamp.ImagePartUpperPart.Height / STAMP_SCALE_FACTOR));
+                G.DrawImage(IMG_STAMP_SCALED, new Point(SPLIT_CROSSING_X + STAMP_MARGIN_LEFT, OUTER_MARGIN_SIZE_UPDOWN + STAMP_MARGIN_TOP));
+            }
 
             if (stamp?.ImagePartTrackingCode != null)
             {
-                double TRACKING_SCALE_FACTOR = 1.4d;
+                int TRACKING_MARGIN_LEFT = 30;
+                int TRACKING_MARGIN_TOP = 150;
+                double TRACKING_SCALE_FACTOR = 1.85d;
                 Image IMG_TRACKING_SCALED = Util.ResizeImage(stamp.ImagePartTrackingCode, (int)(stamp.ImagePartTrackingCode.Width / TRACKING_SCALE_FACTOR), (int)(stamp.ImagePartTrackingCode.Height / TRACKING_SCALE_FACTOR));
-                G.DrawImage(IMG_TRACKING_SCALED, new Point(1130, 2770));
+                G.DrawImage(IMG_TRACKING_SCALED, new Point(OUTER_MARGIN_SIZE_LEFTRIGHT + TRACKING_MARGIN_LEFT, SPLIT_CROSSING_Y + TRACKING_MARGIN_TOP));
             }
 
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:eZnaczekPrint"
         mc:Ignorable="d"
-        Title="Podgląd wydruku" Height="523" Width="900" WindowStartupLocation="CenterOwner" Icon="Images/actions_document_print_preview_15786.png" ContentRendered="Window_ContentRendered">
+        Title="Podgląd wydruku" Height="900" Width="500" WindowStartupLocation="CenterOwner" Icon="Images/actions_document_print_preview_15786.png" ContentRendered="Window_ContentRendered">
     <Grid>
         <ToolBar  VerticalAlignment="Top" Height="64" Background="Transparent">
             <local:ToolBarButton x:Name="TbBtnSave" Text="Zapisz" Image="Images/floppy_unmount.png" VerticalAlignment="Stretch" Click="TbBtnSave_Click" ></local:ToolBarButton>

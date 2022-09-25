@@ -9,10 +9,10 @@ namespace eZnaczekPrint.Render
 {
     public class StampFormatIntlRegistered : StampFormat
     {
-        const int STAMP_UPPER_PART_X = 110;
-        const int STAMP_UPPER_PART_Y = 15;
-        const int STAMP_UPPER_PART_WIDTH = 1360;
-        const int STAMP_UPPER_PART_HEIGHT = 510;
+         int STAMP_UPPER_PART_X = 730;
+         int STAMP_UPPER_PART_Y = 15;
+         int STAMP_UPPER_PART_WIDTH =750;
+         int STAMP_UPPER_PART_HEIGHT = 510;
 
         const int STAMP_TRACKING_CODE_X = 15;
         const int STAMP_TRACKING_CODE_Y = 520;

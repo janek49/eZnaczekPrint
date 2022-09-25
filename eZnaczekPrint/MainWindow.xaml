@@ -17,7 +17,7 @@
                             <TextBlock>Pojedyncza etykieta</TextBlock>
                         </StackPanel>
                     </TabItem.Header>
-                    <page:PageSingleLabel></page:PageSingleLabel>
+                    <page:PageSingleLabel x:Name="pageSingle"></page:PageSingleLabel>
                 </TabItem>
 
             </TabControl>

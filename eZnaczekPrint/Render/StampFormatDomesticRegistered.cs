@@ -9,10 +9,10 @@ namespace eZnaczekPrint.Render
 {
     public class StampFormatDomesticRegistered : StampFormat
     {
-        const int STAMP_UPPER_PART_X = 110;
-        const int STAMP_UPPER_PART_Y = 40;
-        const int STAMP_UPPER_PART_WIDTH = 1360;
-        const int STAMP_UPPER_PART_HEIGHT = 510;
+         int STAMP_UPPER_PART_X = 110;
+         int STAMP_UPPER_PART_Y = 40;
+         int STAMP_UPPER_PART_WIDTH = 1360;
+         int STAMP_UPPER_PART_HEIGHT = 510;
 
         const int STAMP_TRACKING_CODE_X = 15;
         const int STAMP_TRACKING_CODE_Y = 550;
@@ -21,6 +21,9 @@ namespace eZnaczekPrint.Render
 
         public StampFormatDomesticRegistered(Image input)
         {
+            if (input == null)
+                return;
+
             ImageWholeStamp = input;
             Bitmap upperPart = new Bitmap(STAMP_UPPER_PART_WIDTH, STAMP_UPPER_PART_HEIGHT);
             using (Graphics g = Graphics.FromImage(upperPart))
